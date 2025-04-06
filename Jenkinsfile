@@ -21,6 +21,12 @@ pipeline {
                 bat 'curl http://localhost:3000/users'
             }
         }
+
+        stage('Ejecutar pruebas') {
+            steps {
+                bat 'npm test'
+            }
+        }
     }
 
     post {
