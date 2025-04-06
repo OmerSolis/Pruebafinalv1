@@ -27,6 +27,15 @@ pipeline {
                 bat 'npm test'
             }
         }
+
+        stage('Generar reporte') {
+            steps {
+                // Guarda salida de tests en archivo, incluso si fallan
+                bat 'npm test > test-report.txt || exit 0'
+                archiveArtifacts artifacts: 'test-report.txt', allowEmptyArchive: true
+            }
+        }
+
     }
 
     post {
