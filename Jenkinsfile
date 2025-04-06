@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clonar repositorio') {
             steps {
-                git 'https://github.com/tu-usuario/tu-repo.git'
+                git 'https://github.com/OmerSolis/Pruebafinalv1.git'
             }
         }
 
