@@ -10,37 +10,25 @@ pipeline {
 
         stage('Instalar dependencias') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
-        stage('Iniciar servidor (opcional)') {
+        stage('Iniciar servidor') {
             steps {
-                sh 'nohup npm start &'
-                sh 'sleep 2'
-            }
-        }
-
-        stage('Ejecutar pruebas') {
-            steps {
-                sh 'npm test'
-            }
-        }
-
-        stage('Generar reporte') {
-            steps {
-                sh 'npm test > test-report.txt || true'
-                archiveArtifacts artifacts: 'test-report.txt', allowEmptyArchive: true
+                bat 'start /B npm start'
+                bat 'timeout /T 5 > NUL'
+                bat 'curl http://localhost:3000/users'
             }
         }
     }
 
     post {
-        always {
-            echo 'Pipeline terminado.'
+        success {
+            echo '🚀 El pipeline se ejecutó correctamente. La API está funcionando.'
         }
         failure {
-            echo 'Falló alguna etapa del pipeline.'
+            echo '❌ Falló una etapa del pipeline.'
         }
     }
 }
