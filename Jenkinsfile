@@ -17,7 +17,7 @@ pipeline {
         stage('Iniciar servidor') {
             steps {
                 bat 'start /B npm start'
-                bat 'timeout /T 5 > NUL'
+                bat 'timeout /T 5'
                 bat 'curl http://localhost:3000/users'
             }
         }
